@@ -53,6 +53,16 @@
   width: var(--w);
 }
 
+/* Robot jump when tapped (components/interactive/Hop.tsx). Stepped like the rest of the pixel motion. */
+@keyframes hop {
+  40% {
+    transform: translateY(-35%);
+  }
+}
+.hop {
+  animation: hop 480ms steps(6);
+}
+
 /* Scroll reveal (components/interactive/Reveal.tsx). Visible unless JavaScript marked it "hidden". */
 [data-reveal="hidden"] {
   opacity: 0;
@@ -79,6 +89,10 @@
   /* paused + negative delays = clouds stay spread across the sky */
   .drift {
     animation-play-state: paused;
+  }
+  
+  .hop {
+    animation: none;
   }
   /* reveal = fade only, no slide */
   [data-reveal="hidden"] {

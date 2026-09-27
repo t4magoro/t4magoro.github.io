@@ -52,6 +52,25 @@
       transform: translate(-10px, -10px);
     }
   }
+  /* Same lift while pressed (:active) or just tapped (data-tapped, set by TapFeedback.tsx for Android).
+     Must stay OUTSIDE the @media above, which only applies to mouse users.
+     Rises fast (100ms), then eases back down (200ms). */
+  .lift:active,
+  .lift[data-tapped] {
+    transform: translate(-10px, -10px);
+    transition-duration: 100ms;
+  }
+  
+  @media (hover: hover) and (pointer: fine) {
+    .lift:hover {
+      transform: translate(-10px, -10px);
+    }
+    /* Same lift while pressed, so taps on phones animate too. */
+  .lift:active {
+    transform: translate(-10px, -10px);
+    transition-duration: 100ms;
+  }
+  }
 
   /* Dotted paper background (Quest log) */
   .dither {

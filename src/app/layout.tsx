@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Silkscreen, Space_Mono } from "next/font/google";
 import { Scenery } from "@/components/pixel/Scenery";
 import { ImageGuard } from "@/components/ui/ImageGuard";
+import { TapFeedback } from "@/components/ui/TapFeedback";
 import { SITE_URL } from "@/lib/site";
 import "./globals.css";
 
@@ -55,6 +56,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body>
         <Scenery />
         <ImageGuard />
+        <TapFeedback />
         {children}
       </body>
     </html>

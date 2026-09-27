@@ -6,6 +6,7 @@ import { PixelEdge } from "@/components/pixel/PixelEdge";
 import { SPRITES } from "@/components/pixel/sprites";
 import { PixelButton } from "@/components/ui/PixelButton";
 import { profile } from "@/content/profile";
+import { Hop } from "@/components/interactive/Hop";
 
 const HERO_CLOUDS: Cloud[] = [
   { top: "6%", w: "22%", duration: "70s", delay: "-12s" },
@@ -47,7 +48,9 @@ export function Hero() {
         </p>
 
         <FollowSprite className="my-10 w-20 sm:w-28">
-          <PixelArt art={SPRITES.robot} className="bob w-full" title="Pixel robot mascot" />
+          <Hop label="Make the robot jump">
+            <PixelArt art={SPRITES.robot} className="bob w-full" title="Pixel robot mascot" />
+          </Hop>
         </FollowSprite>
 
         <PixelButton href="#about" play>

@@ -75,6 +75,14 @@
     .nav-tab:hover {
       background: var(--color-lemon);
       color: var(--color-ink);
-    }
+    }    
+  }
+
+  /* Same look while pressed, so taps on phones get feedback too. Must stay OUTSIDE the @media above.
+  Changes instantly on press so even a quick tap shows it, then fades back (150ms). */
+  .nav-tab:active {
+    background: var(--color-lemon);
+    color: var(--color-ink);
+    transition-duration: 0s;
   }
 }
