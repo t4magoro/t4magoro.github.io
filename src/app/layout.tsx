@@ -44,6 +44,8 @@ export const metadata: Metadata = {
   twitter: { card: "summary_large_image" },
   // Keep the pages in Google, but ask search engines not to list the pictures in image search.
   robots: { index: true, follow: true, noimageindex: true },
+  // Proves to Google Search Console that this site is mine. Don't remove it later.
+  verification: { google: "-0mrVU6BbBnlqD3Otw-_jELtKyheAITzcHWhXB-aPlo" },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
