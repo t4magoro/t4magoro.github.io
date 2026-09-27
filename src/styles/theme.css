@@ -1,0 +1,46 @@
+/* Design tokens. Tailwind turns these into classes: bg-pink, text-ink, fill-lemon, font-pixel, ... */
+@theme {
+  --color-pink: #f54ba3;
+  --color-sky: #6ec1ee;
+  --color-sky-soft: #c5e6f8;
+  --color-ink: #141414;
+  --color-lemon: #fff15c;
+  --color-paper: #f3efe3;
+  --color-grass: #5bc24a;
+  /* Strong ease-out for UI motion (also used by Tailwind's ease-out class) */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* "inline" because these point at the font variables set by next/font in layout.tsx */
+@theme inline {
+  --font-pixel: var(--font-silkscreen), monospace;
+  --font-mono: var(--font-space-mono), ui-monospace, monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-sky);
+  color: var(--color-ink);
+  font-family: var(--font-mono);
+}
+
+::selection {
+  background: var(--color-lemon);
+  color: var(--color-ink);
+}
+
+/* Deterrent against saving pictures (see components/ui/ImageGuard.tsx):
+   no drag-to-desktop, no long-press "Save image" menu on iPhone, no selection highlight. */
+img {
+  -webkit-user-drag: none;
+  -webkit-touch-callout: none;
+  user-select: none;
+}
+
+:focus-visible {
+  outline: 3px dashed currentColor;
+  outline-offset: 4px;
+}

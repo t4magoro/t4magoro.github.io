@@ -1,0 +1,33 @@
+// Characters and decorations used around the page.
+export const SCENE = {
+  robot: [
+    ".......pp.......",
+    ".......kk.......",
+    "..kkkkkkkkkkkk..",
+    ".kwwwwwwwwwwwwk.",
+    ".kwkkkkkkkkkkwk.",
+    ".kwkbbkkkkbbkwk.",
+    ".kwkbbkkkkbbkwk.",
+    ".kwkkkkkkkkkkwk.",
+    ".kwkkkppppkkkwk.",
+    ".kwkkkkkkkkkkwk.",
+    ".kwwwwwwwwwwwwk.",
+    "..kkkkkkkkkkkk..",
+    "...kwwwwwwwwk...",
+    ".kkkwwykkywwkkk.",
+    "...kwwwwwwwwk...",
+    "...kk......kk...",
+  ],
+  cloud: [
+    ".........wwww...........",
+    ".......wwwwwwww.........",
+    "....wwwwwwwwwwwww.......",
+    "..wwwwwwwwwwwwwwwwwww...",
+    ".wwwwwwwwwwwwwwwwwwwwww.",
+    "wwwwwwwwwwwwwwwwwwwwwwww",
+    "wccwwwwwwwwwwwwwwwwwwccw",
+    ".cccccccccccccccccccccc.",
+  ],
+  sparkle: ["..w..", "..w..", "ww.ww", "..w..", "..w.."],
+  play: ["k...", "kk..", "kkk.", "kkkk", "kkk.", "kk..", "k..."],
+} satisfies Record<string, string[]>;

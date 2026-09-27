@@ -1,0 +1,12 @@
+@import "tailwindcss";
+
+/* Tokens (colors, fonts) and base page styles */
+@import "../styles/theme.css";
+/* Headings, buttons, nav tabs */
+@import "../styles/components.css";
+/* Windows, cards, backgrounds, stat bars */
+@import "../styles/surfaces.css";
+/* Keyframes + reduced-motion rules */
+@import "../styles/animations.css";
+
+@import "../styles/lightbox.css";

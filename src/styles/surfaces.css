@@ -1,0 +1,72 @@
+@layer components {
+  /* Classic Mac window (Susan Kare vibe) — used by components/ui/Window.tsx */
+  .win {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border: 3px solid var(--color-ink);
+    color: var(--color-ink);
+  }
+  .win-bar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 28px;
+    padding: 5px 6px;
+    border-bottom: 3px solid var(--color-ink);
+    /* horizontal stripes, kept inside the padding so there's a white margin around them */
+    background: repeating-linear-gradient(to bottom, var(--color-ink) 0 2px, transparent 2px 4px) content-box;
+  }
+  .win-close {
+    position: absolute;
+    left: 12px;
+    width: 14px;
+    height: 14px;
+    background: #fff;
+    border: 2px solid var(--color-ink);
+    box-shadow: 0 0 0 3px #fff;
+  }
+  .win-title {
+    max-width: calc(100% - 56px); /* leave room for the close box */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    background: #fff;
+    padding: 0 8px;
+    font-family: var(--font-pixel);
+    font-size: 12px;
+  }
+
+  .shadow-px {
+    box-shadow: 6px 6px 0 var(--color-ink);
+  }
+
+  /* Card sits on a black block; hover lifts it further off. Only transform animates. */
+  .lift {
+    transform: translate(-6px, -6px);
+    transition: transform 200ms var(--ease-out);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .lift:hover {
+      transform: translate(-10px, -10px);
+    }
+  }
+
+  /* Dotted paper background (Quest log) */
+  .dither {
+    background-image: radial-gradient(rgb(20 20 20 / 0.14) 1px, transparent 1.5px);
+    background-size: 8px 8px;
+  }
+
+  /* Checkerboard behind the paint canvas: one square = one cell of the 16x16 grid */
+  .canvas-bg {
+    background: repeating-conic-gradient(#eee 0 25%, #fff 0 50%) 0 0 / 12.5% 12.5%;
+  }
+
+  /* 10 pink segments with 3px gaps; StatBar reveals them with clip-path */
+  .stat-fill {
+    height: 12px;
+    background: linear-gradient(90deg, var(--color-pink) calc(100% - 3px), transparent 0) 0 0 / 10% 100%;
+  }
+}

@@ -1,0 +1,45 @@
+/* Full-screen art viewer: components/gallery/Lightbox.tsx (a native <dialog>). */
+
+@layer components {
+  /* Undo the browser's default dialog box so it covers the whole screen, see-through. */
+  .lightbox {
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    max-height: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    overflow: hidden;
+  }
+  /* The dark, see-through layer between the page and the viewer. */
+  .lightbox::backdrop {
+    background: rgb(20 20 20 / 0.85);
+  }
+}
+
+/* Stop the page behind from scrolling while the viewer is open. */
+html:has(.lightbox[open]) {
+  overflow: hidden;
+}
+
+/* Opening: fade + grow slightly from the center. Switching pieces is instant on purpose. */
+@keyframes lightbox-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+}
+.lightbox[open] .lightbox-panel {
+  animation: lightbox-in 240ms var(--ease-out);
+}
+.lightbox[open]::backdrop {
+  animation: fade 240ms ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lightbox[open] .lightbox-panel {
+    animation: fade 200ms ease;
+  }
+}

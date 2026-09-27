@@ -1,0 +1,87 @@
+/* Most animations use steps() so they jump frame by frame, like an 8-bit game. */
+
+@keyframes pop {
+  from {
+    opacity: 0;
+    transform: translateY(35%);
+  }
+}
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+@keyframes bob {
+  50% {
+    transform: translateY(-8%);
+  }
+}
+/* --w = cloud width, so it starts just off the left edge and exits right */
+@keyframes drift {
+  from {
+    transform: translateX(calc(-1 * var(--w)));
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+/* Hero letters: --i is the letter's index, so each one starts a little later */
+.pop {
+  display: inline-block;
+  animation: pop 400ms steps(4) both;
+  animation-delay: calc(var(--i) * 55ms + 100ms);
+}
+.blink {
+  animation: blink 1s steps(1) infinite;
+}
+.twinkle {
+  animation: blink 1.6s steps(1) infinite;
+}
+.bob {
+  animation: bob 1s steps(1) infinite;
+}
+.drift {
+  animation: drift 60s linear infinite;
+}
+.cloud {
+  width: var(--w);
+}
+
+/* Scroll reveal (components/interactive/Reveal.tsx). Visible unless JavaScript marked it "hidden". */
+[data-reveal="hidden"] {
+  opacity: 0;
+  transform: translateY(24px);
+}
+[data-reveal="shown"] {
+  transition:
+    opacity 500ms var(--ease-out) var(--reveal-delay),
+    transform 500ms var(--ease-out) var(--reveal-delay);
+}
+
+/* Reduced motion = fewer and gentler animations, not zero. Keep fades, drop movement. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .pop {
+    animation: fade 300ms ease both;
+  }
+  .bob,
+  .twinkle {
+    animation: none;
+  }
+  /* paused + negative delays = clouds stay spread across the sky */
+  .drift {
+    animation-play-state: paused;
+  }
+  /* reveal = fade only, no slide */
+  [data-reveal="hidden"] {
+    transform: none;
+  }
+}
