@@ -24,7 +24,7 @@ export const artworks: Artwork[] = [
   {
     src: "/art/mt-fuji.jpg",
     title: "Fuji",
-    description: "ive never been to japan before, but when i have the chance to mount fuji will be on my top list.",
+    description: "ive never been to japan before, but when i have the chance, mount fuji will be on my top list.",
     alt: "ive never been to japan before, but when i have the chance to mount fuji will be on my top list",
   },
   {

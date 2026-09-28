@@ -25,7 +25,7 @@ export const languages: Language[] = [
     level: 8,
     note: "Radar signal processing and CNN/LSTM models for Hand Sign Radar.",
   },
-  { name: "HTML", short: "HTML", color: "bg-pink", level: 7, note: "Page structure for the many web apps including this site." },
+  { name: "HTML", short: "HTML", color: "bg-pink", level: 7, note: "Page structure for many web apps including this site." },
   { name: "CSS", short: "CSS", color: "bg-paper", level: 7, note: "Styling with Tailwind CSS, including this pixel theme." },
   { name: "JavaScript", short: "JS", color: "bg-lemon", level: 7, note: "Interactive web apps, mostly with React and TypeScript." },
 ];

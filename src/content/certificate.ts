@@ -38,6 +38,7 @@ export const certificates: Certificate[] = [
     year: "2025",
     src: "/certificates/presenter-certificate.jpg",
     alt: "Certificate as a research presenter for my Paper",
+    verifyUrl : "https://ieeexplore.ieee.org/document/11213456",
   },
   {
     title: "International Community Service Certificate",

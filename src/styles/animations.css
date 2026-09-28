@@ -63,17 +63,24 @@
   animation: hop 480ms steps(6);
 }
 
-/* Scroll reveal (components/interactive/Reveal.tsx). Visible unless JavaScript marked it "hidden". */
+/* Scroll reveal (components/interactive/Reveal.tsx). Visible unless JavaScript marked it
+   "waiting" (hidden instantly at page load) or "hidden" (faded out after being seen).
+   Fading out (300ms, no delay) is quicker than fading in (500ms + stagger delay). */
+[data-reveal="waiting"],
 [data-reveal="hidden"] {
   opacity: 0;
   transform: translateY(24px);
+}
+[data-reveal="hidden"] {
+  transition:
+    opacity 300ms var(--ease-out),
+    transform 300ms var(--ease-out);
 }
 [data-reveal="shown"] {
   transition:
     opacity 500ms var(--ease-out) var(--reveal-delay),
     transform 500ms var(--ease-out) var(--reveal-delay);
 }
-
 /* Reduced motion = fewer and gentler animations, not zero. Keep fades, drop movement. */
 @media (prefers-reduced-motion: reduce) {
   html {
@@ -95,6 +102,7 @@
     animation: none;
   }
   /* reveal = fade only, no slide */
+  [data-reveal="waiting"],
   [data-reveal="hidden"] {
     transform: none;
   }
