@@ -51,4 +51,23 @@ export const TECH = {
     ".....k.....",
     "...kkkkk...",
   ],
+  // Ohm, the robot pet, with its happy face (same art as ohm/src/components/OhmSprite.tsx).
+  ohm: [
+    ".......yy.......",
+    ".......kk.......",
+    ".kkkkkkkkkkkkkk.",
+    ".kbbbbbbbbbbbbk.",
+    ".kbkkkkkkkkkkbk.",
+    ".kbkkgkkkkgkkbk.",
+    ".kbkgkgkkgkgkbk.",
+    ".kbkkkgkkgkkkbk.",
+    ".kbkpkkggkkpkbk.",
+    ".kbkkkkkkkkkkbk.",
+    ".kbbbbbbbbbbbbk.",
+    ".kkkkkkkkkkkkkk.",
+    "....kbbbbbbk....",
+    "...kbbbyybbbk...",
+    "...kbbbbbbbbk...",
+    "...kkkkkkkkkk...",
+  ],
 } satisfies Record<string, string[]>;

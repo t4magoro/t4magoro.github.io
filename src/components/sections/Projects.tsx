@@ -1,3 +1,4 @@
+import { OhmStatus } from "@/components/interactive/OhmStatus";
 import { Reveal } from "@/components/interactive/Reveal";
 import { PixelArt } from "@/components/pixel/PixelArt";
 import { PixelEdge } from "@/components/pixel/PixelEdge";
@@ -10,7 +11,7 @@ import { projects, type Project } from "@/content/projects";
 const toFileName = (name: string) => `${name.toLowerCase().replaceAll(" ", "-")}.sav`;
 
 function ProjectCard({ project, index }: { project: Project; index: number }) {
-  const { name, icon, solo, blurb, tags, repo, live } = project;
+  const { name, icon, solo, blurb, tags, repo, live, ohmApi, beta, howItWorks } = project;
 
   return (
     <Reveal delay={index * 0.06} className="h-full bg-ink">
@@ -18,12 +19,33 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         <div className="flex h-full flex-col gap-4 p-5">
           <div className="flex items-start justify-between gap-3">
             <PixelArt art={SPRITES[icon]} className="h-14 w-auto" />
-            <span className={`px-2 py-1 font-pixel text-xs uppercase ${solo ? "bg-pink text-white" : "bg-ink text-lemon"}`}>
-              {solo ? "Solo" : "Team"}
-            </span>
+            <div className="flex gap-2">
+              {beta && (
+                <span className="bg-sky px-2 py-1 font-pixel text-xs uppercase" title="Still in development">
+                  Beta
+                </span>
+              )}
+              <span className={`px-2 py-1 font-pixel text-xs uppercase ${solo ? "bg-pink text-white" : "bg-ink text-lemon"}`}>
+                {solo ? "Solo" : "Team"}
+              </span>
+            </div>
           </div>
           <h3 className="font-pixel text-lg font-bold uppercase leading-tight">{name}</h3>
           <p className="text-sm leading-relaxed">{blurb}</p>
+          {ohmApi && <OhmStatus api={ohmApi} />}
+          {howItWorks && (
+            <details className="border-2 border-ink text-sm">
+              <summary className="cursor-pointer px-2 py-1 font-pixel text-xs uppercase">How it works</summary>
+              <ul className="space-y-2 px-3 pb-3 leading-relaxed">
+                {howItWorks.map((point) => (
+                  <li key={point} className="flex gap-2">
+                    <span aria-hidden className="mt-2 size-1.5 shrink-0 bg-pink" />
+                    {point}
+                  </li>
+                ))}
+              </ul>
+            </details>
+          )}
 
           <ul className="flex flex-wrap gap-2">
             {tags.map((t) => (

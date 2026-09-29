@@ -43,6 +43,5 @@ next-env.d.ts
 # AI assistant notes (local only)
 AGENTS.md
 CLAUDE.md
-
 .claude
 graphify-out/
