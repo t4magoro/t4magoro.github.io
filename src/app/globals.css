@@ -10,3 +10,6 @@
 @import "../styles/animations.css";
 
 @import "../styles/lightbox.css";
+
+/* Glass nav, XP bar, quest path, Earth */
+@import "../styles/motion.css";

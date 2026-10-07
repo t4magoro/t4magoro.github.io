@@ -1,7 +1,6 @@
 import { PaintBox } from "@/components/interactive/PaintBox";
 import { Reveal } from "@/components/interactive/Reveal";
 import { PixelArt } from "@/components/pixel/PixelArt";
-import { PixelEdge } from "@/components/pixel/PixelEdge";
 import { SPRITES } from "@/components/pixel/sprites";
 import { PixelButton } from "@/components/ui/PixelButton";
 import { Section } from "@/components/ui/Section";
@@ -9,7 +8,7 @@ import { Window } from "@/components/ui/Window";
 
 export function Art() {
   return (
-    <Section id="art" className="bg-pink text-white" edge={<PixelEdge color="fill-ink" accent="fill-lemon" offset={14} />}>
+    <Section id="art" className="bg-pink text-white">
       <div className="grid items-center gap-12 md:grid-cols-2">
         <Reveal>
           <p className="font-pixel text-sm text-lemon">Side quest unlocked</p>

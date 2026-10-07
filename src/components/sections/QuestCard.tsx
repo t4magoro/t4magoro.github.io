@@ -11,7 +11,7 @@ export function QuestCard({ quest }: { quest: Quest }) {
     <li className="relative">
       <span
         aria-hidden
-        className={`absolute -left-[34px] top-5 size-4 border-2 border-ink sm:-left-[50px] ${active ? "bg-pink" : "bg-white"}`}
+        className={`quest-mark absolute -left-[34px] top-5 size-4 border-2 border-ink sm:-left-[50px] ${active ? "bg-pink" : "bg-white"}`}
       />
       <Reveal>
         <Window title={period} className="shadow-px max-w-3xl">

@@ -1,39 +1,19 @@
 import { Reveal } from "@/components/interactive/Reveal";
-import { PixelArt } from "@/components/pixel/PixelArt";
 import { PixelEdge } from "@/components/pixel/PixelEdge";
-import { SPRITES } from "@/components/pixel/sprites";
 import { Section } from "@/components/ui/Section";
 import { profile } from "@/content/profile";
 import { PlayerCard } from "./PlayerCard";
 
-// Twinkling stars in the black background. d = animation delay.
-const SPARKLES = [
-  { left: "5%", top: "10%", d: "0s" },
-  { left: "90%", top: "6%", d: "0.4s" },
-  { left: "70%", top: "34%", d: "0.9s" },
-  { left: "10%", top: "60%", d: "1.3s" },
-  { left: "94%", top: "72%", d: "0.2s" },
-  { left: "48%", top: "88%", d: "1.1s" },
-];
-
 const highlight = "box-decoration-clone bg-pink px-1 text-white";
-
-function Sparkles() {
-  return SPARKLES.map((s, i) => (
-    <PixelArt
-      key={i}
-      art={SPRITES.sparkle}
-      className="twinkle pointer-events-none absolute w-4"
-      style={{ left: s.left, top: s.top, animationDelay: s.d }}
-    />
-  ));
-}
 
 export function About() {
   return (
-    <Section id="about" className="bg-ink text-white" edge={<PixelEdge color="fill-lemon" accent="fill-pink" offset={9} />}>
-      <Sparkles />
-
+    <Section
+      id="about"
+      className="text-white"
+      top={<PixelEdge above="fill-sky-soft" accent="fill-pink" />}
+      edge={<PixelEdge color="fill-lemon" accent="fill-pink" offset={9} />}
+    >
       <Reveal>
         <h2 className="h2">
           Who am <span className="text-pink">I?</span>
@@ -41,6 +21,7 @@ export function About() {
       </Reveal>
 
       <div className="mt-10 grid gap-12 md:grid-cols-[1.3fr_1fr]">
+        {/* glass: the background Earth blurs behind the text instead of running through it className="glass self-start p-5 sm:p-6"*/}
         <Reveal delay={0.06}>
           <p className="text-xl leading-snug sm:text-2xl">
             I&apos;m {profile.first}. I make <mark className={highlight}>hardware talk to the internet</mark> and keep{" "}

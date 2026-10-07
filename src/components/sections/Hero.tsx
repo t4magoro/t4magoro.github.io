@@ -2,7 +2,6 @@ import type { CSSProperties } from "react";
 import { FollowSprite } from "@/components/interactive/FollowSprite";
 import { Clouds, type Cloud } from "@/components/pixel/Clouds";
 import { PixelArt } from "@/components/pixel/PixelArt";
-import { PixelEdge } from "@/components/pixel/PixelEdge";
 import { SPRITES } from "@/components/pixel/sprites";
 import { PixelButton } from "@/components/ui/PixelButton";
 import { profile } from "@/content/profile";
@@ -58,7 +57,6 @@ export function Hero() {
         </PixelButton>
       </div>
 
-      <PixelEdge color="fill-ink" accent="fill-pink" />
     </section>
   );
 }

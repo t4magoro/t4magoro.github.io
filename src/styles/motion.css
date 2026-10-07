@@ -1,0 +1,109 @@
+/* Motion layer: glass nav (Nav.tsx), XP bar, quest path (Quests.tsx), background Earth (Earth.tsx). */
+
+/* Frosted nav: the page scrolls under it instead of behind a solid bar. */
+.nav-glass {
+  background: rgb(20 20 20 / 0.72);
+  backdrop-filter: blur(14px) saturate(160%);
+}
+/* People who turn off transparency (or ask for more contrast) get the solid bar back. */
+@media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
+  .nav-glass {
+    background: var(--color-ink);
+    backdrop-filter: none;
+  }
+}
+
+/* The pill (Nav.tsx) is the highlight; the tab only switches its text color. */
+.nav-tab[aria-current] {
+  color: var(--color-ink);
+}
+
+.xp {
+  display: none;
+}
+
+/* Scroll-driven extras. Browsers without them (Firefox for now) just show the page without them. */
+@supports (animation-timeline: scroll()) {
+  /* XP bar: 40 blocks along the bottom of the nav, filling one block at a time with page progress. */
+  .xp {
+    display: block;
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--color-lemon) calc(100% - 2px), transparent 0) 0 0 / 2.5% 100%;
+    animation: xp steps(40) both;
+    animation-timeline: scroll(root);
+  }
+
+  /* Quest log path: progress = how much of the list has passed the middle of the screen.
+     "cover 50vh" = the list's top at mid-screen; "cover calc(100% - 50vh)" = its bottom at mid-screen. */
+  .quest-path::before {
+    content: "";
+    position: absolute;
+    left: -4px;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: var(--color-pink);
+    transform-origin: top;
+    animation: path steps(24) both;
+    animation-timeline: view();
+    animation-range: cover 50vh cover calc(100% - 50vh);
+  }
+  /* Each marker (16px) lights up the moment its middle crosses mid-screen. */
+  .quest-mark {
+    animation: mark steps(1, end) both;
+    animation-timeline: view();
+    animation-range: cover 0% cover calc(50vh + 8px);
+  }
+}
+
+@keyframes xp {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0);
+  }
+}
+@keyframes path {
+  from {
+    transform: scaleY(0);
+  }
+}
+@keyframes mark {
+  from {
+    background: #fff;
+  }
+  to {
+    background: var(--color-pink);
+  }
+}
+
+/* Background Earth: keep its big pixels square and sharp when the small canvas is scaled up.
+   Dimmed to 40% so it stays behind the words. Brightness, not opacity: it stays solid, so the
+   stars behind it don't shine through the planet. */
+.earth {
+  image-rendering: pixelated;
+  filter: brightness(0.4);
+}
+
+/* Pixel frosted glass for the see-through boxes on the dark sections (About, Spellbook): the Earth
+   and stars behind them blur into soft color. The glass is made of square tiles like big pixels,
+   each a little brighter in its middle, so they read by soft shading, never by drawn lines. */
+@layer components {
+  .glass {
+    --tile: 24px;
+    background:
+      radial-gradient(closest-side, rgb(255 255 255 / 0.05), transparent) 0 0 / var(--tile) var(--tile),
+      rgb(20 20 20 / 0.45);
+    backdrop-filter: blur(14px) saturate(150%);
+  }
+  /* Transparency off or more contrast: plain black boxes, like before. */
+  @media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
+    .glass {
+      background: var(--color-ink);
+      backdrop-filter: none;
+    }
+  }
+}

@@ -4,10 +4,10 @@ import { stats } from "@/content/skills";
 import { Avatar } from "./Avatar";
 
 // RPG-style character sheet: portrait + name, info rows, then stat bars.
-// bg-ink hides the twinkling stars behind the card.
+// Frosted glass (.glass in styles/motion.css): stars and the Earth blur behind it.
 export function PlayerCard() {
   return (
-    <div className="border-4 border-white bg-ink p-5 font-pixel text-xs sm:text-sm">
+    <div className="glass border-4 border-white p-5 font-pixel text-xs sm:text-sm">
       <div className="flex items-center gap-4">
         <Avatar className="w-20 sm:w-24" />
         <div>

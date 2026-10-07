@@ -24,17 +24,18 @@ function Achievements() {
   );
 }
 
-// Experience as a timeline: a dashed line with one window per job.
+// Experience as a timeline: a dashed line with one window per job. The line gets painted pink as
+// you read down it, and each marker lights up as you pass it (.quest-path in motion-c.css).
 export function Quests() {
   return (
     <Section
       id="quests"
       className="dither bg-paper"
-       edge={<PixelEdge color="fill-grass" accent="fill-pink" offset={33} />}
+      edge={<PixelEdge color="fill-grass" accent="fill-pink" offset={33} />}
     >
       <SectionHeader title="Quest log" sub="Where I've been leveling up." />
 
-      <ol className="mt-12 space-y-10 border-l-4 border-dashed border-ink pl-6 sm:pl-10">
+      <ol className="quest-path relative mt-12 space-y-10 border-l-4 border-dashed border-ink pl-6 sm:pl-10">
         {quests.map((q) => (
           <QuestCard key={q.role} quest={q} />
         ))}

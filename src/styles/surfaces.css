@@ -60,17 +60,6 @@
     transform: translate(-10px, -10px);
     transition-duration: 100ms;
   }
-  
-  @media (hover: hover) and (pointer: fine) {
-    .lift:hover {
-      transform: translate(-10px, -10px);
-    }
-    /* Same lift while pressed, so taps on phones animate too. */
-  .lift:active {
-    transform: translate(-10px, -10px);
-    transition-duration: 100ms;
-  }
-  }
 
   /* Dotted paper background (Quest log) */
   .dither {

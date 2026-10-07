@@ -107,3 +107,25 @@
     transform: none;
   }
 }
+/* "How it works" boxes (<details>) slide open instead of jumping. Browsers without
+   interpolate-size (Firefox, older Safari) keep the instant open, which is fine. */
+@supports (interpolate-size: allow-keywords) {
+  :root {
+    interpolate-size: allow-keywords;
+  }
+  details::details-content {
+    height: 0;
+    overflow: clip;
+    transition:
+      height 250ms var(--ease-out),
+      content-visibility 250ms allow-discrete;
+  }
+  details[open]::details-content {
+    height: auto;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    details::details-content {
+      transition: none;
+    }
+  }
+}

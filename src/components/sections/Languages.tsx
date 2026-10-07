@@ -8,7 +8,7 @@ import { languages, toolkits, type Language } from "@/content/languages";
 function LanguageCard({ lang, index }: { lang: Language; index: number }) {
   return (
     <Reveal delay={index * 0.05} className="h-full">
-      <div className="flex h-full flex-col gap-4 border-4 border-white p-4">
+      <div className="glass flex h-full flex-col gap-4 border-4 border-white p-4">
         <div className="flex items-center gap-3">
           <span className={`grid size-12 shrink-0 place-items-center font-pixel text-xs font-bold text-ink ${lang.color}`}>
             {lang.short}
@@ -52,7 +52,12 @@ function Toolkit() {
 // Programming languages + frameworks/tools, kept apart from the general skills in Inventory.
 export function Languages() {
   return (
-    <Section id="code" className="bg-ink text-white" edge={<PixelEdge color="fill-paper" accent="fill-lemon" offset={27} />}>
+    <Section
+      id="code"
+      className="text-white"
+      top={<PixelEdge above="fill-lemon" accent="fill-pink" offset={21} />}
+      edge={<PixelEdge color="fill-paper" accent="fill-lemon" offset={27} />}
+    >
       <SectionHeader title="Spellbook" sub="Programming languages I've mastered, and the gear I build with." />
 
       <ul className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

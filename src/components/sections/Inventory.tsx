@@ -1,6 +1,5 @@
 import { Reveal } from "@/components/interactive/Reveal";
 import { PixelArt } from "@/components/pixel/PixelArt";
-import { PixelEdge } from "@/components/pixel/PixelEdge";
 import { SPRITES, type SpriteName } from "@/components/pixel/sprites";
 import { Section, SectionHeader } from "@/components/ui/Section";
 import { inventory, type Item } from "@/content/skills";
@@ -43,7 +42,7 @@ function Equation() {
 
 export function Inventory() {
   return (
-    <Section id="items" className="bg-lemon" edge={<PixelEdge color="fill-ink" accent="fill-pink" offset={21} />}>
+    <Section id="items" className="bg-lemon">
       <SectionHeader title="Inventory" sub="Items collected so far." className="text-center" />
 
       <ul className="mt-12 grid grid-cols-2 gap-6 sm:gap-8 lg:grid-cols-3">

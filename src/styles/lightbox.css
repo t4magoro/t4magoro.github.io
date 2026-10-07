@@ -19,27 +19,59 @@
   }
 }
 
-/* Stop the page behind from scrolling while the viewer is open. */
+/* Stop the page behind from scrolling while the viewer is open. The scrollbar's space stays
+   reserved, so the page doesn't jump sideways when the viewer opens or closes. */
+html {
+  scrollbar-gutter: stable;
+}
 html:has(.lightbox[open]) {
   overflow: hidden;
 }
 
-/* Opening: fade + grow slightly from the center. Switching pieces is instant on purpose. */
+/* Opening: the viewer grows out of the card you clicked (--from, set by Lightbox.tsx).
+   Fast start, soft landing. */
 @keyframes lightbox-in {
   from {
     opacity: 0;
-    transform: scale(0.96);
+    transform: scale(0.15);
+  }
+  40% {
+    opacity: 1;
   }
 }
-.lightbox[open] .lightbox-panel {
-  animation: lightbox-in 240ms var(--ease-out);
+.lightbox[open] .lightbox-stage {
+  transform-origin: var(--from, 50% 50%);
+  animation: lightbox-in 420ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 .lightbox[open]::backdrop {
   animation: fade 240ms ease;
 }
 
+/* Closing (data-closing, for 240ms before the dialog really closes): it shrinks back into the card
+   and fades. Quicker than opening, and it speeds up as it goes, like something being put away. */
+@keyframes fade-out {
+  to {
+    opacity: 0;
+  }
+}
+@keyframes lightbox-out {
+  to {
+    transform: scale(0.15);
+  }
+}
+.lightbox[data-closing],
+.lightbox[data-closing]::backdrop {
+  animation: fade-out 240ms ease-in forwards;
+}
+.lightbox[data-closing] .lightbox-stage {
+  animation: lightbox-out 240ms cubic-bezier(0.7, 0, 0.84, 0) forwards;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .lightbox[open] .lightbox-panel {
+  .lightbox[open] .lightbox-stage {
     animation: fade 200ms ease;
+  }
+  .lightbox[data-closing] .lightbox-stage {
+    animation: none;
   }
 }
