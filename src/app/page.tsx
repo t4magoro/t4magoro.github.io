@@ -5,6 +5,7 @@ import { Contact } from "@/components/sections/Contact";
 import { Hero } from "@/components/sections/Hero";
 import { Inventory } from "@/components/sections/Inventory";
 import { Languages } from "@/components/sections/Languages";
+import { Backdrop } from "@/components/backdrop/Backdrop";
 import { Earth } from "@/components/pixel/Earth";
 import { Nav } from "@/components/sections/Nav";
 import { Projects } from "@/components/sections/Projects";
@@ -20,6 +21,9 @@ export default function Home() {
       {/* Space behind every section (stars + Earth). isolate keeps it above main's black and below
           the sections, so it only shows where a section is see-through black. */}
       <Earth />
+      {/* Moving background of the light sections. Before them in the page, so their content
+          paints over it while it paints over their colors. */}
+      <Backdrop />
       <Hero />
       <About />
       <Inventory />

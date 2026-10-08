@@ -6,6 +6,8 @@ import { PixelButton } from "@/components/ui/PixelButton";
 import { Section } from "@/components/ui/Section";
 import { Window } from "@/components/ui/Window";
 
+const highlight = "box-decoration-clone bg-pink px-1 text-white";
+
 export function Art() {
   return (
     <Section id="art" className="bg-pink text-white">
@@ -14,8 +16,10 @@ export function Art() {
           <p className="font-pixel text-sm text-lemon">Side quest unlocked</p>
           <h2 className="h2 mt-2">Art corner</h2>
           <p className="mt-6 max-w-md leading-relaxed">
+            <mark className={highlight}>
             Before circuits there were sketchbooks. I haven&apos;t drawn in a while, so here&apos;s a canvas. Your turn:
             draw something.
+            </mark>
           </p>
           <div className="mt-8 flex items-center gap-6">
             <PixelArt art={SPRITES.palette} className="w-20" />

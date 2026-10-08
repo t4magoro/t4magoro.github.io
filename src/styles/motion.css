@@ -81,11 +81,12 @@
 }
 
 /* Background Earth: keep its big pixels square and sharp when the small canvas is scaled up.
-   Dimmed to 40% so it stays behind the words. Brightness, not opacity: it stays solid, so the
-   stars behind it don't shine through the planet. */
+   Full brightness, with its own pixel glow (globe.ts) plus a soft blue light around it. Where text
+   crosses it, the section background (Backdrop.tsx) dims it behind the words only. */
 .earth {
   image-rendering: pixelated;
-  filter: brightness(0.4);
+  filter: drop-shadow(0 0 28px rgb(110 193 238 / 0.45));
+  opacity: 0.7;
 }
 
 /* Pixel frosted glass for the see-through boxes on the dark sections (About, Spellbook): the Earth

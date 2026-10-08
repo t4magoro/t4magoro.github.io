@@ -1,9 +1,11 @@
 // Pixel globe: a sphere drawn pixel by pixel from a generated world map. No libraries, no images.
 // createEarth() builds the map once; the function it returns redraws the globe for a spin and a sun.
 
-const R = 46; // globe radius in pixels
-/** Canvas width and height: the globe plus a 1px atmosphere and a 1px outline on each side. */
-export const SIZE = R * 2 + 4;
+/** Globe radius in pixels (the section backgrounds read it to circle the Earth). */
+export const R = 46;
+const HALO = 7; // glow around the planet, in pixels
+/** Canvas width and height: the globe, a 1px atmosphere and a 1px outline, then the glow. */
+export const SIZE = R * 2 + 4 + HALO * 2;
 const W = 256; // world map size (longitude × latitude)
 const H = 128;
 const TILT = 0.41; // Earth's axial tilt, 23.4° in radians
@@ -21,7 +23,8 @@ const SHADES = [
   ["#ffffff", "#e6f0f8", "#c9d9e8", "#3a4466"],
 ].map((row) => row.map(rgb));
 const CITY = rgb("#fff15c"); // lemon city lights on the night side
-const AIR = rgb("#a8dcff"); // atmosphere on the sunny edge
+const AIR = rgb("#a8dcff"); // atmosphere on the sunny edge, and the inner glow
+const GLOW = rgb("#6ec1ee"); // the outer glow
 const OUTLINE = rgb("#2b1a4a");
 // 4×4 ordered dither: shade bands break up in a checker pattern, like hand-drawn pixel art.
 const BAYER = [0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5];
@@ -91,16 +94,17 @@ export function createEarth(canvas: HTMLCanvasElement) {
   const image = ctx.createImageData(SIZE, SIZE);
 
   // Per screen pixel, once: the surface direction (normal), and where on the map it looks.
-  const pixels: { i: number; nx: number; ny: number; nz: number; col: number; row: number; ring: number }[] = [];
+  // ring: 0 planet, 1 atmosphere, 2 outline, 3 glow (k = how far out in the glow, 0–1)
+  const pixels: { i: number; nx: number; ny: number; nz: number; col: number; row: number; ring: number; k: number }[] = [];
   for (let py = 0; py < SIZE; py++) {
     for (let px = 0; px < SIZE; px++) {
       const dx = px + 0.5 - SIZE / 2, dy = py + 0.5 - SIZE / 2;
       const dist = Math.hypot(dx, dy);
-      if (dist > R + 2) continue;
+      if (dist > R + 2 + HALO) continue;
       const i = (py * SIZE + px) * 4;
       if (dist > R) {
-        // ring 1 = atmosphere (lit side) or outline, ring 2 = outline
-        pixels.push({ i, nx: dx / dist, ny: -dy / dist, nz: 0, col: 0, row: 0, ring: dist > R + 1 ? 2 : 1 });
+        const ring = dist > R + 2 ? 3 : dist > R + 1 ? 2 : 1;
+        pixels.push({ i, nx: dx / dist, ny: -dy / dist, nz: 0, col: 0, row: 0, ring, k: (dist - R - 2) / HALO });
         continue;
       }
       const nx = dx / R, ny = -dy / R, nz = Math.sqrt(Math.max(0, 1 - nx * nx - ny * ny));
@@ -108,7 +112,7 @@ export function createEarth(canvas: HTMLCanvasElement) {
       const gx = nx * Math.cos(TILT) + ny * Math.sin(TILT), gy = -nx * Math.sin(TILT) + ny * Math.cos(TILT);
       const lat = Math.asin(Math.max(-1, Math.min(1, gy))), lon = Math.atan2(gx, nz);
       const row = Math.min(H - 1, Math.floor((0.5 - lat / Math.PI) * H));
-      pixels.push({ i, nx, ny, nz, col: (lon / (2 * Math.PI)) * W, row, ring: 0 });
+      pixels.push({ i, nx, ny, nz, col: (lon / (2 * Math.PI)) * W, row, ring: 0, k: 0 });
     }
   }
 
@@ -127,10 +131,18 @@ export function createEarth(canvas: HTMLCanvasElement) {
     for (const p of pixels) {
       const light = p.nx * lx + p.ny * ly + p.nz * lz;
       let color: number[];
-      if (p.ring) {
+      const x = (p.i / 4) % SIZE, y = Math.floor(p.i / 4 / SIZE);
+      if (p.ring === 3) {
+        // Glow: dithered, thinning out with distance, brightest on the sunny side.
+        const strength = (1 - p.k) ** 1.6 * (0.3 + 0.7 * Math.min(1, Math.max(0, light + 0.4)));
+        if (strength <= BAYER[(x & 3) + (y & 3) * 4] / 16) {
+          d[p.i + 3] = 0;
+          continue;
+        }
+        color = p.k < 0.4 ? AIR : GLOW;
+      } else if (p.ring) {
         color = p.ring === 1 && light > 0.15 ? AIR : OUTLINE;
       } else {
-        const x = (p.i / 4) % SIZE, y = Math.floor(p.i / 4 / SIZE);
         const lit = light + (BAYER[(x & 3) + (y & 3) * 4] / 16 - 0.5) * 0.25;
         const shade = lit > 0.45 ? 0 : lit > 0.15 ? 1 : lit > -0.05 ? 2 : 3;
         const col = (Math.floor(p.col) + turn + W) % W;

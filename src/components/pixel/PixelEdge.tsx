@@ -32,11 +32,13 @@ export function PixelEdge({ color, above, accent = color, offset = 0 }: Props) {
 
   return (
     // The overlap into the neighbouring section hides the hairline seam a fractional pixel position leaves.
+    // Not positioned on purpose: the moving section background (Backdrop) paints over it, so its
+    // blocks carry on across the jagged border instead of disappearing behind it.
     <svg
       viewBox={`0 0 ${cols} ${ROWS}`}
       shapeRendering="crispEdges"
       aria-hidden
-      className={`relative block w-full ${above ? "-mt-[2px]" : "-mb-px"}`}
+      className={`block w-full ${above ? "-mt-[2px]" : "-mb-px"}`}
     >
       {above ? <path d={top} className={above} /> : <path d={solid} className={color} />}
       <path d={floating} className={accent} />
